@@ -15,13 +15,11 @@ namespace ProfileSample.Controllers
         {
             var context = new ProfileSampleEntities();
 
-            var sources = context.ImgSources.Take(20).Select(x => x.Id);
-            
+            var sources = context.ImgSources.Take(20);
+
             var model = new List<ImageModel>();
 
-            var imgSources = context.ImgSources.Where(imgSrc => sources.Contains(imgSrc.Id));
-
-            foreach (var item in imgSources)
+            foreach (var item in sources)
             {
                 var obj = new ImageModel()
                 {
@@ -30,7 +28,7 @@ namespace ProfileSample.Controllers
                 };
 
                 model.Add(obj);
-            } 
+            }
 
             return View(model);
         }
