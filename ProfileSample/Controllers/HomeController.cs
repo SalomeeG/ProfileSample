@@ -19,10 +19,10 @@ namespace ProfileSample.Controllers
             
             var model = new List<ImageModel>();
 
-            foreach (var id in sources)
-            {
-                var item = context.ImgSources.Find(id);
+            var imgSources = context.ImgSources.Where(imgSrc => sources.Contains(imgSrc.Id));
 
+            foreach (var item in imgSources)
+            {
                 var obj = new ImageModel()
                 {
                     Name = item.Name,
@@ -56,9 +56,9 @@ namespace ProfileSample.Controllers
                         };
 
                         context.ImgSources.Add(entity);
-                        context.SaveChanges();
                     }
-                } 
+                }
+                context.SaveChanges();
             }
 
             return RedirectToAction("Index");
